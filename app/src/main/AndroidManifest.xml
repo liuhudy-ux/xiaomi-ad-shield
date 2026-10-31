@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <queries>
+        <package android:name="com.sankuai.meituan" />
+        <package android:name="com.sankuai.meituan.takeoutnew" />
+        <package android:name="com.dianping.v1" />
+        <package android:name="com.jingdong.app.mall" />
+        <package android:name="com.taobao.taobao" />
+        <package android:name="com.tmall.wireless" />
+        <package android:name="com.xunmeng.pinduoduo" />
+        <package android:name="com.eg.android.AlipayGphone" />
+        <package android:name="com.tencent.mm" />
+        <package android:name="com.ss.android.ugc.aweme" />
+        <package android:name="com.smile.gifmaker" />
+        <package android:name="tv.danmaku.bili" />
+        <package android:name="com.tencent.qqlive" />
+        <package android:name="com.qiyi.video" />
+        <package android:name="com.youku.phone" />
+        <package android:name="com.xingin.xhs" />
+        <package android:name="com.zhihu.android" />
+        <package android:name="com.autonavi.minimap" />
+        <package android:name="com.baidu.BaiduMap" />
+        <package android:name="ctrip.android.view" />
+        <package android:name="com.Qunar" />
+        <package android:name="com.tencent.qqmusic" />
+        <package android:name="com.netease.cloudmusic" />
+    </queries>
+
+    <application
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="false"
+        android:icon="@drawable/ic_shield"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="false">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".DnsVpnService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse"
+            android:permission="android.permission.BIND_VPN_SERVICE">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Local DNS filtering for user-selected ad blocking" />
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".RuleUpdateJobService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+    </application>
+</manifest>

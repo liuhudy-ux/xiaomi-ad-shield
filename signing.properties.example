@@ -1,0 +1,6 @@
+# Copy this file to signing.properties and fill in your local release key values.
+# Never commit signing.properties or the keystore itself.
+storeFile=release.keystore
+storePassword=change-me
+keyAlias=change-me
+keyPassword=change-me

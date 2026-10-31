@@ -1,0 +1,28 @@
+# Android / Gradle build output
+.gradle/
+.gradle-local/
+.android-local/
+.android-sdk/
+**/build/
+*.apk
+*.aab
+
+# Local dependency cache used only for offline development
+local-maven/
+
+# IDE and OS files
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local SDK and signing secrets
+local.properties
+signing.properties
+*.keystore
+*.jks
+
+# Temporary files
+*.log
+*.tmp

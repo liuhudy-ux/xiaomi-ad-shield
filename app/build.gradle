@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+
+def releaseSigningProperties = new Properties()
+def releaseSigningFile = rootProject.file('signing.properties')
+if (releaseSigningFile.exists()) {
+    releaseSigningFile.withInputStream { releaseSigningProperties.load(it) }
+}
+def releaseStoreFile = System.getenv('RELEASE_STORE_FILE') ?: releaseSigningProperties.getProperty('storeFile')
+def releaseStorePassword = System.getenv('RELEASE_STORE_PASSWORD') ?: releaseSigningProperties.getProperty('storePassword')
+def releaseKeyAlias = System.getenv('RELEASE_KEY_ALIAS') ?: releaseSigningProperties.getProperty('keyAlias')
+def releaseKeyPassword = System.getenv('RELEASE_KEY_PASSWORD') ?: releaseSigningProperties.getProperty('keyPassword')
+def hasReleaseSigning = releaseStoreFile && releaseStorePassword && releaseKeyAlias && releaseKeyPassword
+
+android {
+    namespace 'com.local.xiaomiadshield'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId 'com.local.xiaomiadshield'
+        minSdk 26
+        targetSdk 36
+        versionCode 12
+        versionName '0.12.0'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    signingConfigs {
+        if (hasReleaseSigning) {
+            release {
+                storeFile rootProject.file(releaseStoreFile)
+                storePassword releaseStorePassword
+                keyAlias releaseKeyAlias
+                keyPassword releaseKeyPassword
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-debug'
+        }
+        release {
+            minifyEnabled false
+            if (hasReleaseSigning) signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
